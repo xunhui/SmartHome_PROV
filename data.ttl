@@ -1,0 +1,42 @@
+shs:alertData a prov:Entity ;
+
+shs:rawData_hum2 a prov:Entity ;
+
+shs:rawData_hum1 a prov:Entity ;
+
+shs:commandData1 a prov:Entity ;
+
+shs:rawData_tep2 a prov:Entity ;
+
+shs:commandData2 a prov:Entity ;
+
+shs:rawData_tep3 a prov:Entity ;
+
+shs:resultData1 a prov:Entity ;
+
+shs:resultData2 a prov:Entity ;
+
+shs:rawData_tep1 a prov:Entity ;
+
+shs:derivedData a prov:Entity ;
+
+shs:middleData a prov:Entity ;
+
+shs:configData2 a prov:Entity ;
+
+shs:configData1 a prov:Entity ;
+
+shs:middleData prov:wasDerivedFrom shs:rawData_hum1 , shs:rawData_tep3 , shs:rawData_tep2 , shs:rawData_tep1 , shs:rawData_hum2 .
+
+shs:resultData1 prov:wasDerivedFrom shs:commandData1 .
+
+shs:alertData prov:wasDerivedFrom shs:middleData .
+
+_:blank1 a prov:Revision ;
+	prov:entity shs:configData1 .
+
+shs:configData2 prov:qualifiedRevision _:blank1 .
+
+shs:derivedData prov:wasDerivedFrom shs:alertData .
+
+shs:resultData2 prov:wasDerivedFrom shs:commandData2 .

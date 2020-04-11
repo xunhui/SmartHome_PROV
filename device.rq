@@ -1,0 +1,20 @@
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/spec/20100809.html#>
+PREFIX shs: <http://example.org/#>
+
+CONSTRUCT {
+shs:Device1 ?key1 ?value1.
+?relatedAgent prov:actedOnBehalfOf shs:Device1.
+?relatedActivity prov:wasAssociatedWith ?relatedAgent.
+?relatedEntity prov:wasAttributedTo ?relatedAgent.
+?relatedActivity ?key2 ?value2.
+?relatedEntity ?key3 ?value3.
+}
+WHERE {
+shs:Device1 ?key1 ?value1.
+?relatedAgent prov:actedOnBehalfOf shs:Device1.
+?relatedActivity prov:wasAssociatedWith ?relatedAgent.
+?relatedEntity prov:wasAttributedTo ?relatedAgent.
+?relatedActivity ?key2 ?value2.
+}

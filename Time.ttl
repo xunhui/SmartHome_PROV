@@ -1,0 +1,52 @@
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix foaf:  <http://xmlns.com/foaf/spec/20100809.html#> .
+@prefix shs:   <http://example.org/#> .
+
+shs:resultData2  a            prov:Entity ;
+        shs:Time              "2019-11-09T16:47:00"^^xsd:dateTime ;
+        shs:value             "{status: success, state: Off}" ;
+        prov:wasAttributedTo  shs:Device2 ;
+        prov:wasDerivedFrom   shs:commandData2 ;
+        prov:wasGeneratedBy   shs:execute2 .
+
+shs:configData2  a            prov:Entity ;
+        shs:Time              "2019-11-09T16:46:15"^^xsd:dateTime ;
+        shs:value             "[Humidity > 70% => Open Device2]" ;
+        prov:wasAttributedTo  shs:User ;
+        prov:wasGeneratedBy   shs:modify ;
+        prov:wasRevisionOf    shs:configData1 .
+
+shs:alertData  a              prov:Entity ;
+        shs:Time              "2019-11-09T16:46:00"^^xsd:dateTime ;
+        shs:value             "{severity: warning, info: 'Humidity is 75%, higher than 60%. Please open the Device2!''}" ;
+        prov:wasAttributedTo  shs:Server ;
+        prov:wasDerivedFrom   shs:middleData ;
+        prov:wasGeneratedBy   shs:analyze_alert .
+
+shs:rawData_hum2  a           prov:Entity ;
+        shs:Time              "2019-11-09T16:46:00"^^xsd:dateTime ;
+        shs:value             "75%" ;
+        prov:wasAttributedTo  shs:Sensor2 ;
+        prov:wasGeneratedBy   shs:collect2 .
+
+shs:resultData1  a            prov:Entity ;
+        shs:Time              "2019-11-09T16:46:15"^^xsd:dateTime ;
+        shs:value             "{status: success, state: On}" ;
+        prov:wasAttributedTo  shs:Device2 ;
+        prov:wasDerivedFrom   shs:commandData1 ;
+        prov:wasGeneratedBy   shs:execute1 .
+
+shs:rawData_tep3  a           prov:Entity ;
+        shs:Time              "2019-11-09T16:46:00"^^xsd:dateTime ;
+        shs:value             "23.9℃" ;
+        prov:wasAttributedTo  shs:Sensor1 ;
+        prov:wasGeneratedBy   shs:collect1 .
+
+shs:middleData  a             prov:Entity ;
+        shs:Time              "2019-11-09T16:46:00"^^xsd:dateTime ;
+        shs:valueHum          "{nowHum: 75%, avgHum: 42%, maxHum: 75%, minHum: 40%}" ;
+        shs:valueTep          "{nowTem: 24.6℃ avgTem: 24.5℃ maxTem: 25.0℃ minTem: 20.1℃}" ;
+        prov:wasAttributedTo  shs:Server ;
+        prov:wasDerivedFrom   shs:rawData_tep1 , shs:rawData_tep3 , shs:rawData_hum1 , shs:rawData_hum2 , shs:rawData_tep2 ;
+        prov:wasGeneratedBy   shs:analyze_data .

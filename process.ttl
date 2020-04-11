@@ -1,0 +1,166 @@
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix bnode: <http://openprovenance.org/provtoolbox/bnode/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/spec/20100809.html#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix shs: <http://example.org/#> .
+
+
+shs:rawData_hum2 a prov:Entity ;
+	shs:value "40%"^^xsd:string ;
+	shs:Time "2019-11-09T16:45:30"^^xsd:dateTime .
+
+shs:rawData_hum1 a prov:Entity ;
+	shs:value "42%"^^xsd:string ;
+	shs:Time "2019-11-09T16:45:00"^^xsd:dateTime .
+
+shs:rawData_hum3 a prov:Entity ;
+	shs:value "75%"^^xsd:string ;
+	shs:Time "2019-11-09T16:46:00"^^xsd:dateTime .
+
+# shs:commandData1 a prov:Entity ;
+# 	shs:Time "2019-11-09T16:46:15"^^xsd:dateTime ;
+# 	shs:desc "Open Device2"^^xsd:string .
+
+shs:rawData_tep2 a prov:Entity ;
+	shs:value "25.1"^^xsd:double ;
+	shs:Time "2019-11-09T16:45:30"^^xsd:dateTime .
+
+shs:derivedData1 a prov:Entity ;
+	shs:value "https://example.mp4"^^xsd:string ;
+	shs:desc "An audio for humidity warning."^^xsd:string .
+
+# shs:commandData2 a prov:Entity ;
+# 	shs:Time "2019-11-09T16:47:00"^^xsd:dateTime ;
+# 	shs:desc "Close Device2"^^xsd:string .
+
+shs:rawData_tep3 a prov:Entity ;
+	shs:value "23.9"^^xsd:double ;
+	shs:Time "2019-11-09T16:46:00"^^xsd:dateTime .
+
+# shs:resultData1 a prov:Entity ;
+# 	shs:value "{status: success, state: On}"^^xsd:string ;
+# 	shs:Time "2019-11-09T16:46:15"^^xsd:dateTime .
+
+# shs:resultData2 a prov:Entity ;
+# 	shs:value "{status: success, state: Off}"^^xsd:string ;
+# 	shs:Time "2019-11-09T16:47:00"^^xsd:dateTime .
+
+shs:rawData_tep1 a prov:Entity ;
+	shs:value "24.6"^^xsd:double ;
+	shs:Time "2019-11-09T16:45:00"^^xsd:dateTime .
+
+shs:alertData1 a prov:Entity ;
+	shs:value "{severity: warning, info: 'Humidity is 75%, higher than 60%. Please open the Device2!''}"^^xsd:string ;
+	shs:Time "2019-11-09T16:46:00"^^xsd:dateTime .
+
+# shs:middleData2 a prov:Entity ;
+# 	shs:valueTep "{nowTem: 25.1, avgTem: 24.6, maxTem: 25.1, minTem: 20.1}"^^xsd:string ;
+# 	shs:Time "2019-11-09T16:45:30"^^xsd:dateTime ;
+# 	shs:valueHum "{nowHum: 75%, avgHum: 42%, maxHum: 75%, minHum: 40%}"^^xsd:string .
+
+# shs:middleData1 a prov:Entity ;
+# 	shs:valueTep "{nowTem: 24.6, avgTem: 24.5, maxTem: 25.0, minTem: 20.1}"^^xsd:string ;
+# 	shs:Time "2019-11-09T16:45:00"^^xsd:dateTime ;
+# 	shs:valueHum "{nowHum: 75%, avgHum: 42%, maxHum: 75%, minHum: 40%}"^^xsd:string .
+
+# shs:configData2 a prov:Entity ;
+# 	shs:value "[Humidity > 70% => Open Device2]"^^xsd:string ;
+# 	shs:Time "2019-11-09T16:46:15"^^xsd:dateTime .
+
+# shs:configData1 a prov:Entity ;
+# 	shs:value "[Humidity > 80% => Open Device2]"^^xsd:string ;
+# 	shs:Time "2019-11-01T12:38:00"^^xsd:dateTime .
+
+shs:middleData3 a prov:Entity ;
+	shs:valueTep "{nowTem: 23.9, avgTem: 24.4, maxTem: 25.1, minTem: 20.1}"^^xsd:string ;
+	shs:Time "2019-11-09T16:46:00"^^xsd:dateTime ;
+	shs:valueHum "{nowHum: 75%, avgHum: 42%, maxHum: 75%, minHum: 40%}"^^xsd:string .
+
+shs:analyze_alert1 prov:used shs:middleData3 .
+
+shs:analyze_data3 prov:used shs:rawData_hum2 .
+
+# shs:send1 prov:used shs:middleData3 .
+
+shs:analyze_data3 prov:used shs:rawData_hum1 .
+
+# shs:execute2 prov:used shs:commandData2 .
+
+# shs:execute1 prov:used shs:commandData1 .
+
+shs:analyze_data3 prov:used shs:rawData_hum3 .
+
+shs:visualize prov:used shs:alertData1 .
+
+# shs:analyze_data2 prov:used shs:rawData_hum1 , shs:rawData_tep2 , shs:rawData_tep1 .
+
+# shs:send1 prov:used shs:configData2 .
+
+# shs:analyze_data2 prov:used shs:rawData_hum2 .
+
+# shs:analyze_data1 prov:used shs:rawData_hum1 , shs:rawData_tep1 .
+
+shs:analyze_data3 prov:used shs:rawData_tep1 .
+
+# shs:modify prov:used shs:configData1 .
+
+shs:analyze_data3 prov:used shs:rawData_tep3 , shs:rawData_tep2 .
+
+# shs:analyze_data1 a prov:Activity .
+
+# shs:send2 a prov:Activity .
+
+# shs:analyze_data2 a prov:Activity .
+
+shs:analyze_alert1 a prov:Activity .
+
+shs:analyze_data3 a prov:Activity .
+
+shs:collect2 a prov:Activity .
+
+# shs:send1 a prov:Activity .
+
+shs:collect1 a prov:Activity .
+
+# shs:execute2 a prov:Activity .
+
+# shs:execute1 a prov:Activity .
+
+shs:visualize a prov:Activity .
+
+# shs:modify a prov:Activity ;
+# 	shs:Time "2019-11-09T16:50:00"^^xsd:dateTime .
+
+shs:rawData_tep3 prov:wasGeneratedBy shs:collect1 .
+
+shs:rawData_hum3 prov:wasGeneratedBy shs:collect2 .
+
+# shs:middleData2 prov:wasGeneratedBy shs:analyze_data2 .
+
+# shs:resultData2 prov:wasGeneratedBy shs:execute2 .
+
+# shs:resultData1 prov:wasGeneratedBy shs:execute1 .
+
+shs:rawData_tep2 prov:wasGeneratedBy shs:collect1 .
+
+# shs:commandData1 prov:wasGeneratedBy shs:send1 .
+
+# shs:commandData2 prov:wasGeneratedBy shs:send2 .
+
+shs:rawData_hum1 prov:wasGeneratedBy shs:collect2 .
+
+shs:rawData_hum2 prov:wasGeneratedBy shs:collect2 .
+
+shs:derivedData1 prov:wasGeneratedBy shs:visualize .
+
+shs:middleData3 prov:wasGeneratedBy shs:analyze_data3 .
+
+# shs:middleData1 prov:wasGeneratedBy shs:analyze_data1 .
+
+shs:alertData1 prov:wasGeneratedBy shs:analyze_alert1 .
+
+# shs:configData2 prov:wasGeneratedBy shs:modify .
+
+shs:rawData_tep1 prov:wasGeneratedBy shs:collect1 .

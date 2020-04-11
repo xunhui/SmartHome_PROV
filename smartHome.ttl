@@ -1,0 +1,186 @@
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/spec/20100809.html#> .
+@prefix shs: <http://example.org/#> .
+
+# Entity 
+shs:rawData_tep1 a prov:Entity ;
+    shs:value "24.6"^^xsd:string ;
+    shs:Time "2019-11-09T16:45:00"^^xsd:dateTime .
+shs:rawData_tep2 a prov:Entity ;
+    shs:value "25.1"^^xsd:string ;
+    shs:Time "2019-11-09T16:45:30"^^xsd:dateTime .
+shs:rawData_tep3 a prov:Entity ;
+    shs:value "23.9"^^xsd:string ;
+    shs:Time "2019-11-09T16:46:00"^^xsd:dateTime .
+shs:rawData_hum1 a prov:Entity ;
+    shs:value "42%"^^xsd:string ;
+    shs:Time "2019-11-09T16:45:00"^^xsd:dateTime .
+shs:rawData_hum2 a prov:Entity ;
+    shs:value "75%"^^xsd:string ;
+    shs:Time "2019-11-09T16:46:00"^^xsd:dateTime .
+
+shs:middleData a prov:Entity ;
+    shs:valueTep "{nowTem: 24.6, avgTem: 24.5, maxTem: 25.0, minTem: 20.1}"^^xsd:string ;
+    shs:valueHum "{nowHum: 75%, avgHum: 42%, maxHum: 75%, minHum: 40%}"^^xsd:string ;
+    shs:Time "2019-11-09T16:46:00"^^xsd:dateTime .
+shs:alertData a prov:Entity ;
+    shs:value "{severity: warning, info: 'Humidity is 75%, higher than 60%. Please open the Device2!''}"^^xsd:string ;
+    shs:Time "2019-11-09T16:46:00"^^xsd:dateTime .
+
+shs:configData1 a prov:Entity ;
+    shs:value "[Humidity > 80% => Open Device2]"^^xsd:string ;
+    shs:Time "2019-11-01T12:38:00"^^xsd:dateTime .
+shs:configData2 a prov:Entity ;
+    shs:value "[Humidity > 70% => Open Device2]"^^xsd:string ;
+    shs:Time "2019-11-09T16:46:15"^^xsd:dateTime .
+
+shs:commandData1 a prov:Entity ;
+    shs:desc "Open Device2"^^xsd:string ;
+    shs:Time "2019-11-09T16:46:15"^^xsd:dateTime .
+shs:commandData2 a prov:Entity ;
+    shs:desc "Close Device2"^^xsd:string ;
+    shs:Time "2019-11-09T16:47:00"^^xsd:dateTime .
+
+shs:resultData1 a prov:Entity ;
+    shs:value "{status: success, state: On}"^^xsd:string ;
+    shs:Time "2019-11-09T16:46:15"^^xsd:dateTime .
+shs:resultData2 a prov:Entity ;
+    shs:value "{status: success, state: Off}"^^xsd:string ;
+    shs:Time "2019-11-09T16:47:00"^^xsd:dateTime .
+
+shs:derivedData a prov:Entity ;
+    shs:value "https://example.mp4"^^xsd:string ;
+    shs:desc "An audio for humidity warning."^^xsd:string .
+
+# Agents
+shs:Device1 a prov:Agent ;
+    shs:protocol "Zigbee"^^xsd:string ;
+    shs:deviceID "H1G1D1"^^xsd:string ;
+    shs:address "192.168.1.10"^^xsd:string ;
+    shs:state "Online"^^xsd:string .
+shs:Device2 a prov:Agent ;
+    shs:protocol "WIFI"^^xsd:string ;
+    shs:deviceID "H1G1D2"^^xsd:string ;
+    shs:address "192.168.1.13"^^xsd:string ;
+    shs:state "Off"^^xsd:string .
+
+shs:Sensor1 a prov:Agent ;
+    shs:sensorID "H1G1D1S001" .
+shs:Sensor2 a prov:Agent ;
+    shs:sensorID "H1G1D1S002" .
+
+shs:Server a prov:Agent ;
+    a prov:SoftwareAgent ;
+    shs:desc "https://home.mi.com"^^xsd:string .
+
+shs:User a prov:Agent ;
+    a prov:Person ;
+    foaf:name "ZhangSan"^^xsd:string .
+
+shs:Application a prov:Agent ;
+    a prov:SoftwareAgent ;
+    shs:desc "MiJia provides you with high-quality smart home services"^^xsd:string .
+
+# Activity
+shs:collect1 a prov:Activity .
+shs:collect2 a prov:Activity .
+
+shs:execute1 a prov:Activity .
+shs:execute2 a prov:Activity .
+
+shs:analyze_data a prov:Activity .
+shs:analyze_alert a prov:Activity .
+
+shs:send1 a prov:Activity .
+shs:send2 a prov:Activity .
+shs:modify a prov:Activity .
+
+shs:visualize a prov:Activity .
+
+# usage and generation
+shs:rawData_tep1 prov:wasGeneratedBy shs:collect1 .
+shs:rawData_tep2 prov:wasGeneratedBy shs:collect1 .
+shs:rawData_tep3 prov:wasGeneratedBy shs:collect1 .
+shs:rawData_hum1 prov:wasGeneratedBy shs:collect2 .
+shs:rawData_hum2 prov:wasGeneratedBy shs:collect2 .
+
+shs:analyze_data prov:used shs:rawData_tep1 ;
+    prov:used shs:rawData_tep2 ;
+    prov:used shs:rawData_tep3 ;
+    prov:used shs:rawData_hum1 ;
+    prov:used shs:rawData_hum2 .
+shs:middleData prov:wasGeneratedBy shs:analyze_data .
+
+shs:analyze_alert prov:used shs:middleData .
+shs:alertData prov:wasGeneratedBy shs:analyze_alert .
+
+shs:modify prov:used shs:configData1 .
+shs:configData2 prov:wasGeneratedBy shs:modify .
+
+shs:visualize prov:used shs:alertData .
+shs:derivedData prov:wasGeneratedBy shs:visualize .
+
+shs:send1 prov:used shs:middleData ;
+    prov:used shs:configData2 .
+shs:commandData1 prov:wasGeneratedBy shs:send1 .
+
+shs:commandData2 prov:wasGeneratedBy shs:send2 .
+
+shs:execute1 prov:used shs:commandData1 .
+shs:resultData1 prov:wasGeneratedBy shs:execute1 .
+
+shs:execute2 prov:used shs:commandData2 .
+shs:resultData2 prov:wasGeneratedBy shs:execute2 .
+
+# Responsibility
+shs:collect1 prov:wasAssociatedWith shs:Sensor1 .
+shs:collect2 prov:wasAssociatedWith shs:Sensor2 .
+
+shs:execute1 prov:wasAssociatedWith shs:Device2 .
+shs:execute2 prov:wasAssociatedWith shs:Device2 .
+
+shs:analyze_data prov:wasAssociatedWith shs:Server .
+shs:analyze_alert prov:wasAssociatedWith shs:Server .
+
+shs:modify prov:wasAssociatedWith shs:User .
+
+shs:send1 prov:wasAssociatedWith shs:Server .
+shs:send2 prov:wasAssociatedWith shs:User .
+
+shs:visualize prov:wasAssociatedWith shs:Application .
+
+shs:Sensor1 prov:actedOnBehalfOf shs:Device1 .
+shs:Sensor2 prov:actedOnBehalfOf shs:Device1 .
+
+shs:rawData_tep1 prov:wasAttributedTo shs:Sensor1 .
+shs:rawData_tep2 prov:wasAttributedTo shs:Sensor1 .
+shs:rawData_tep3 prov:wasAttributedTo shs:Sensor1 .
+shs:rawData_hum1 prov:wasAttributedTo shs:Sensor2 .
+shs:rawData_hum2 prov:wasAttributedTo shs:Sensor2 .
+
+shs:resultData1 prov:wasAttributedTo shs:Device2 .
+shs:resultData2 prov:wasAttributedTo shs:Device2 .
+
+shs:middleData prov:wasAttributedTo shs:Server .
+shs:alertData prov:wasAttributedTo shs:Server .
+
+shs:derivedData prov:wasAttributedTo shs:Application .
+
+shs:configData1 prov:wasAttributedTo shs:User .
+shs:configData2 prov:wasAttributedTo shs:User .
+# left to attribute
+
+# Derivation and Revision
+shs:middleData prov:wasDerivedFrom shs:rawData_tep1 .
+shs:middleData prov:wasDerivedFrom shs:rawData_tep2 .
+shs:middleData prov:wasDerivedFrom shs:rawData_tep3 .
+shs:middleData prov:wasDerivedFrom shs:rawData_hum1 .
+shs:middleData prov:wasDerivedFrom shs:rawData_hum2 .
+shs:alertData prov:wasDerivedFrom shs:middleData .
+shs:configData2 prov:wasRevisionOf shs:configData1 .
+shs:derivedData prov:wasDerivedFrom shs:alertData .
+shs:resultData1 prov:wasDerivedFrom shs:commandData1 .
+shs:resultData2 prov:wasDerivedFrom shs:commandData2 .
+# Time
+shs:modify shs:Time "2019-11-09T16:50:00"^^xsd:dateTime .

@@ -1,0 +1,31 @@
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix foaf:  <http://xmlns.com/foaf/spec/20100809.html#> .
+@prefix shs:   <http://example.org/#> .
+
+shs:configData2  a            prov:Entity ;
+        shs:Time              "2019-11-09T16:50:00"^^xsd:dateTime ;
+        shs:value             "[Humidity > 70% => Open Device2]" ;
+        prov:wasAttributedTo  shs:User ;
+        prov:wasGeneratedBy   shs:modify ;
+        prov:wasRevisionOf    shs:configData1 .
+
+shs:User  a        prov:Agent , prov:Person ;
+        foaf:name  "ZhangSan" .
+
+shs:modify  a                   prov:Activity ;
+        shs:Time                "2019-11-09T16:50:00"^^xsd:dateTime ;
+        prov:used               shs:configData1 ;
+        prov:wasAssociatedWith  shs:User .
+
+shs:configData1  a            prov:Entity ;
+        shs:Time              "2019-11-01T12:38:00"^^xsd:dateTime ;
+        shs:value             "[Humidity > 80% => Open Device2]" ;
+        prov:wasAttributedTo  shs:User .
+
+shs:create2  a                  prov:Activity ;
+        prov:wasAssociatedWith  shs:User .
+
+shs:commandData2 prov:wasGeneratedBy shs:create2 .
+shs:commandData2 a prov:Entity ;
+    shs:desc "Close Device2"^^xsd:string .
