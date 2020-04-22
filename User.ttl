@@ -1,31 +1,47 @@
-@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
-@prefix prov:  <http://www.w3.org/ns/prov#> .
-@prefix foaf:  <http://xmlns.com/foaf/spec/20100809.html#> .
-@prefix shs:   <http://example.org/#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix bnode: <http://openprovenance.org/provtoolbox/bnode/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/spec/20100809.html#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix shs: <http://example.org/#> .
 
-shs:configData2  a            prov:Entity ;
-        shs:Time              "2019-11-09T16:50:00"^^xsd:dateTime ;
-        shs:value             "[Humidity > 70% => Open Device2]" ;
-        prov:wasAttributedTo  shs:User ;
-        prov:wasGeneratedBy   shs:modify ;
-        prov:wasRevisionOf    shs:configData1 .
 
-shs:User  a        prov:Agent , prov:Person ;
-        foaf:name  "ZhangSan" .
+shs:configData2 a prov:Entity ;
+	shs:value "[Humidity > 70% => Open Device2]"^^xsd:string ;
+	shs:Time "2020-01-20T16:45:50"^^xsd:dateTime .
 
-shs:modify  a                   prov:Activity ;
-        shs:Time                "2019-11-09T16:50:00"^^xsd:dateTime ;
-        prov:used               shs:configData1 ;
-        prov:wasAssociatedWith  shs:User .
+shs:configData1 a prov:Entity ;
+	shs:value "[Humidity > 80% => Open Device2]"^^xsd:string ;
+	shs:Time "2019-01-11T12:38:00"^^xsd:dateTime .
 
-shs:configData1  a            prov:Entity ;
-        shs:Time              "2019-11-01T12:38:00"^^xsd:dateTime ;
-        shs:value             "[Humidity > 80% => Open Device2]" ;
-        prov:wasAttributedTo  shs:User .
+shs:modify prov:used shs:configData1 .
 
-shs:create2  a                  prov:Activity ;
-        prov:wasAssociatedWith  shs:User .
+shs:configData2 prov:wasAttributedTo shs:User .
+
+shs:configData1 prov:wasAttributedTo shs:User .
+
+_:blank1 a prov:Revision ;
+	prov:entity shs:configData1 .
+
+shs:configData2 prov:qualifiedRevision _:blank1 .
+
+shs:modify prov:wasAssociatedWith shs:User .
 
 shs:commandData2 prov:wasGeneratedBy shs:create2 .
+shs:commandData2 prov:wasAttributedTo shs:User .
 shs:commandData2 a prov:Entity ;
-    shs:desc "Close Device2"^^xsd:string .
+    shs:desc "Close H1G1D2"^^xsd:string ;
+    shs:Time "2020-01-20T16:47:00"^^xsd:dateTime .
+
+shs:create2 prov:wasAssociatedWith shs:User ;
+	a prov:Activity .
+
+shs:modify a prov:Activity ;    
+	prov:startAtTime "2020-01-20T16:45:50"^^xsd:dateTime ;
+        prov:endAtTime "2020-01-20T16:45:50"^^xsd:dateTime .
+
+shs:configData2 prov:wasGeneratedBy shs:modify .
+
+shs:User a prov:Agent , prov:Person ;
+	foaf:name "ZhangSan"^^xsd:string .

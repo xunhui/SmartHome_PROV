@@ -3,58 +3,57 @@
 @prefix foaf:  <http://xmlns.com/foaf/spec/20100809.html#> .
 @prefix shs:   <http://example.org/#> .
 
-shs:configData2 a prov:Entity ;
-    shs:value "[Humidity > 70% => Open Device2]"^^xsd:string ;
-    shs:Time "2019-11-09T16:46:15"^^xsd:dateTime .
+shs:analyze_tep a prov:Activity ;
+        prov:wasAssociatedWith shs:Server .
+shs:analyze_hum a prov:Activity ;
+        prov:wasAssociatedWith shs:Server .
+shs:aggregate a prov:Activity ;
+        prov:wasAssociatedWith shs:Server ;
+        prov:used shs:middleData_tep , shs:middleData_hum .
 
-shs:alertData1  a             prov:Entity ;
-        shs:Time              "2019-11-09T16:46:00"^^xsd:dateTime ;
-        shs:value             "{severity: warning, info: 'Humidity is 75%, higher than 60%. Please open the Device2!''}" ;
+shs:create1  a prov:Activity ;
+        prov:used shs:middleData_tah ;
+        prov:used shs:configData2 .
+shs:commandData1 prov:wasGeneratedBy shs:create1 .
+
+shs:commandData1 a prov:Entity ;
+    shs:desc "Open H1G1D2"^^xsd:string ;
+    shs:Time "2020-01-20T16:45:50"^^xsd:dateTime .
+shs:commandData1 prov:wasAttributedTo shs:Server .
+
+shs:middleData_hum  a         prov:Entity ;
+        shs:Time              "2020-01-20T16:45:30"^^xsd:dateTime ;
+        shs:valueHum          "{nowHum: 75%, avgHum: 43%, maxHum: 75%, minHum: 40%}" ;
         prov:wasAttributedTo  shs:Server ;
-        prov:wasDerivedFrom   shs:middleData3 ;
-        prov:wasGeneratedBy   shs:analyze_alert1 .
+        # prov:wasDerivedFrom   shs:rawData_hum1 , shs:rawData_hum3 , shs:rawData_hum2 ;
+        prov:wasGeneratedBy   shs:analyze_hum .
 
 shs:Server  a     prov:Agent , prov:SoftwareAgent ;
         shs:desc  "https://home.mi.com" .
 
-shs:middleData2  a            prov:Entity ;
-        shs:Time              "2019-11-09T16:45:30"^^xsd:dateTime ;
-        shs:valueHum          "{nowHum: 75%, avgHum: 42%, maxHum: 75%, minHum: 40%}" ;
-        shs:valueTep          "{nowTem: 25.1, avgTem: 24.6, maxTem: 25.1, minTem: 20.1}" ;
+shs:middleData_tep  a         prov:Entity ;
+        shs:Time              "2020-01-20T16:45:30"^^xsd:dateTime ;
+        shs:valueTep          "{nowTem: 23.9, avgTem: 24.6, maxTem: 25.1, minTem: 20.1}" ;
         prov:wasAttributedTo  shs:Server ;
-        prov:wasGeneratedBy   shs:analyze_data2 .
+        # prov:wasDerivedFrom   shs:rawData_tep2 , shs:rawData_tep1 , shs:rawData_tep3 ;
+        prov:wasGeneratedBy   shs:analyze_tep .
 
-shs:analyze_data2  a            prov:Activity ;
-        # prov:used               shs:rawData_hum1 , shs:rawData_tep2 , shs:rawData_tep1 , shs:rawData_hum2 ;
-        prov:wasAssociatedWith  shs:Server .
-
-shs:analyze_alert1  a           prov:Activity ;
-        prov:used               shs:middleData3 ;
-        prov:wasAssociatedWith  shs:Server .
-
-shs:create1  a                  prov:Activity ;
-        prov:used               shs:configData2 , shs:middleData3 ;
-        prov:wasAssociatedWith  shs:Server .
-
-shs:middleData3  a            prov:Entity ;
-        shs:Time              "2019-11-09T16:46:00"^^xsd:dateTime ;
-        shs:valueHum          "{nowHum: 75%, avgHum: 42%, maxHum: 75%, minHum: 40%}" ;
-        shs:valueTep          "{nowTem: 23.9, avgTem: 24.4, maxTem: 25.1, minTem: 20.1}" ;
+shs:alertData_tah  a          prov:Entity ;
+        shs:Time              "2020-01-20T16:45:30"^^xsd:dateTime ;
+        shs:value             "{severity: warning, info: 'Humidity is 75%, higher than 60%. Please open the Device2!''}" ;
         prov:wasAttributedTo  shs:Server ;
-        # prov:wasDerivedFrom   shs:rawData_tep3 , shs:rawData_tep2 , shs:rawData_hum3 , shs:rawData_hum1 , shs:rawData_tep1 , shs:rawData_hum2 ;
-        prov:wasGeneratedBy   shs:analyze_data3 .
+        # prov:wasDerivedFrom   shs:middleData_tah ;
+        prov:wasGeneratedBy   shs:analyze_alert .
 
-shs:analyze_data3  a            prov:Activity ;
-        # prov:used               shs:rawData_hum1 , shs:rawData_tep2 , shs:rawData_tep1 , shs:rawData_hum3 , shs:rawData_tep3 , shs:rawData_hum2 ;
+shs:analyze_alert  a            prov:Activity ;
+        prov:used               shs:middleData_tah ;
         prov:wasAssociatedWith  shs:Server .
 
-shs:middleData1  a            prov:Entity ;
-        shs:Time              "2019-11-09T16:45:00"^^xsd:dateTime ;
-        shs:valueHum          "{nowHum: 75%, avgHum: 42%, maxHum: 75%, minHum: 40%}" ;
-        shs:valueTep          "{nowTem: 24.6, avgTem: 24.5, maxTem: 25.0, minTem: 20.1}" ;
+shs:middleData_tah  a         prov:Entity ;
+        shs:Time              "2020-01-20T16:45:30"^^xsd:dateTime ;
+        shs:quality           "{tahQuality: 'Bad'}" ;
+        shs:valueHum          "{nowHum: 75%, avgHum: 43%, maxHum: 75%, minHum: 40%}" ;
+        shs:valueTep          "{nowTem: 23.9, avgTem: 24.6, maxTem: 25.1, minTem: 20.1}" ;
         prov:wasAttributedTo  shs:Server ;
-        prov:wasGeneratedBy   shs:analyze_data1 .
-
-shs:analyze_data1  a            prov:Activity ;
-        # prov:used               shs:rawData_hum1 , shs:rawData_tep1 ;
-        prov:wasAssociatedWith  shs:Server .
+        # prov:wasDerivedFrom   shs:middleData_tep , shs:middleData_hum ;
+        prov:wasGeneratedBy   shs:aggregate .

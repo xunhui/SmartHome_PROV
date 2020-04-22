@@ -1,0 +1,63 @@
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix bnode: <http://openprovenance.org/provtoolbox/bnode/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/spec/20100809.html#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix shs: <http://example.org/#> .
+
+shs:rawData_tep1 a prov:Entity ;
+    shs:value "24.6"^^xsd:string ;
+    shs:Time "2020-01-20T16:45:00"^^xsd:dateTime .
+shs:rawData_tep2 a prov:Entity ;
+    shs:value "25.1"^^xsd:string ;
+    shs:Time "2020-01-20T16:45:30"^^xsd:dateTime .
+shs:rawData_tep3 a prov:Entity ;
+    shs:value "23.9"^^xsd:string ;
+    shs:Time "2020-01-20T16:46:00"^^xsd:dateTime .
+shs:rawData_hum1 a prov:Entity ;
+    shs:value "42%"^^xsd:string ;
+    shs:Time "2020-01-20T16:45:00"^^xsd:dateTime .
+shs:rawData_hum2 a prov:Entity ;
+    shs:value "75%"^^xsd:string ;
+    shs:Time "2020-01-20T16:45:30"^^xsd:dateTime .
+shs:rawData_hum3 a prov:Entity ;
+    shs:value "40%"^^xsd:string ;
+    shs:Time "2020-01-20T16:46:00"^^xsd:dateTime .
+
+shs:collect1 a prov:Activity .
+shs:collect2 a prov:Activity .
+
+shs:rawData_tep1 prov:wasGeneratedBy shs:collect1 .
+shs:rawData_tep2 prov:wasGeneratedBy shs:collect1 .
+shs:rawData_tep3 prov:wasGeneratedBy shs:collect1 .
+shs:rawData_hum1 prov:wasGeneratedBy shs:collect2 .
+shs:rawData_hum2 prov:wasGeneratedBy shs:collect2 .
+shs:rawData_hum3 prov:wasGeneratedBy shs:collect2 .
+
+shs:Device1 a prov:Agent ;
+	shs:state "Online"^^xsd:string ;
+	shs:deviceID "H1G1D1"^^xsd:string ;
+	shs:protocol "Zigbee"^^xsd:string ;
+	shs:address "192.168.1.10"^^xsd:string .
+
+shs:Sensor1 a prov:Agent ;
+    shs:sensorID "H1G1D1S001" .
+shs:Sensor2 a prov:Agent ;
+    shs:sensorID "H1G1D1S002" .
+
+shs:rawData_tep1 prov:wasAttributedTo shs:Sensor1 .
+shs:rawData_tep2 prov:wasAttributedTo shs:Sensor1 .
+shs:rawData_tep3 prov:wasAttributedTo shs:Sensor1 .
+
+shs:rawData_hum1 prov:wasAttributedTo shs:Sensor2 .
+shs:rawData_hum2 prov:wasAttributedTo shs:Sensor2 .
+shs:rawData_hum3 prov:wasAttributedTo shs:Sensor2 .
+
+shs:collect1 prov:wasAssociatedWith shs:Sensor1 .
+
+shs:collect2 prov:wasAssociatedWith shs:Sensor2 .
+
+shs:Sensor1 prov:actedOnBehalfOf shs:Device1 .
+
+shs:Sensor2 prov:actedOnBehalfOf shs:Device1 .

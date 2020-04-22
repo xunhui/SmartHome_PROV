@@ -1,0 +1,19 @@
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/spec/20100809.html#>
+PREFIX shs: <http://example.org/#>
+
+CONSTRUCT {
+shs:User ?key1 ?value1.
+?relatedActivity prov:wasAssociatedWith shs:User.
+?relatedEntity prov:wasAttributedTo shs:User.
+?relatedActivity ?key2 ?value2.
+?relatedEntity ?key3 ?value3.
+}
+WHERE {
+shs:User ?key1 ?value1.
+?relatedActivity prov:wasAssociatedWith shs:User.
+?relatedEntity prov:wasAttributedTo shs:User.
+?relatedActivity ?key2 ?value2.
+?relatedEntity ?key3 ?value3.
+}
